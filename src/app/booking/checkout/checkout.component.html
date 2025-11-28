@@ -1,0 +1,313 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 py-4 px-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Back Button -->
+        <button
+            class="inline-flex items-center gap-2 px-3 py-2 mb-4 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            (click)="goBack()">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span class="font-medium">Back</span>
+        </button>
+
+        <!-- Page Title -->
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Payment & Checkout</h1>
+
+        <!-- Two Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <!-- Main Content - Payment Form -->
+            <div class="lg:col-span-2 space-y-4">
+                <form [formGroup]="paymentForm" *ngIf="paymentForm">
+
+                    <!-- Card Information -->
+                    <div
+                        class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4">
+                        <h2 class="flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-white mb-3">
+                            <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                            </svg>
+                            Card Information
+                        </h2>
+
+                        <!-- Card Number -->
+                        <div class="mb-3">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Card Number
+                                *</label>
+                            <input type="text" formControlName="cardNumber"
+                                class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors text-sm"
+                                [class.border-red-500]="paymentForm.get('cardNumber')?.invalid && paymentForm.get('cardNumber')?.touched"
+                                placeholder="1234 5678 9012 3456" maxlength="19" (input)="formatCardNumber($event)">
+                            <p class="mt-1 text-xs text-red-600 dark:text-red-400"
+                                *ngIf="paymentForm.get('cardNumber')?.invalid && paymentForm.get('cardNumber')?.touched">
+                                <span *ngIf="paymentForm.get('cardNumber')?.errors?.['required']">Card number is
+                                    required</span>
+                                <span *ngIf="paymentForm.get('cardNumber')?.errors?.['pattern']">Must be 16
+                                    digits</span>
+                            </p>
+                        </div>
+
+                        <!-- Cardholder Name -->
+                        <div class="mb-3">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cardholder
+                                Name *</label>
+                            <input type="text" formControlName="cardName" maxlength="50"
+                                class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors text-sm"
+                                [class.border-red-500]="paymentForm.get('cardName')?.invalid && paymentForm.get('cardName')?.touched"
+                                placeholder="John Doe">
+                            <p class="mt-1 text-xs text-red-600 dark:text-red-400"
+                                *ngIf="paymentForm.get('cardName')?.invalid && paymentForm.get('cardName')?.touched">
+                                Cardholder name is required
+                            </p>
+                        </div>
+
+                        <!-- Expiry & CVV Row -->
+                        <div class="grid grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Expiry
+                                    Month *</label>
+                                <select formControlName="expiryMonth"
+                                    class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors text-sm"
+                                    [class.border-red-500]="paymentForm.get('expiryMonth')?.invalid && paymentForm.get('expiryMonth')?.touched">
+                                    <option value="">Month</option>
+                                    <option *ngFor="let month of months" [value]="month.value">{{ month.label }}
+                                    </option>
+                                </select>
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400"
+                                    *ngIf="paymentForm.get('expiryMonth')?.invalid && paymentForm.get('expiryMonth')?.touched">
+                                    Required
+                                </p>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Expiry
+                                    Year *</label>
+                                <select formControlName="expiryYear"
+                                    class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors text-sm"
+                                    [class.border-red-500]="paymentForm.get('expiryYear')?.invalid && paymentForm.get('expiryYear')?.touched">
+                                    <option value="">Year</option>
+                                    <option *ngFor="let year of years" [value]="year.value">{{ year.label }}</option>
+                                </select>
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400"
+                                    *ngIf="paymentForm.get('expiryYear')?.invalid && paymentForm.get('expiryYear')?.touched">
+                                    Required
+                                </p>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CVV
+                                    *</label>
+                                <input type="text" formControlName="cvv"
+                                    class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors text-sm"
+                                    [class.border-red-500]="paymentForm.get('cvv')?.invalid && paymentForm.get('cvv')?.touched"
+                                    placeholder="123" maxlength="4">
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400"
+                                    *ngIf="paymentForm.get('cvv')?.invalid && paymentForm.get('cvv')?.touched">
+                                    Invalid
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Billing Address -->
+                    <div
+                        class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4">
+                        <h2 class="flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-white mb-3">
+                            <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            Billing Address
+                        </h2>
+
+                        <!-- Address -->
+                        <div class="mb-3">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Address
+                                *</label>
+                            <input type="text" formControlName="billingAddress"
+                                class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors text-sm"
+                                [class.border-red-500]="paymentForm.get('billingAddress')?.invalid && paymentForm.get('billingAddress')?.touched"
+                                placeholder="123 Main Street">
+                            <p class="mt-1 text-xs text-red-600 dark:text-red-400"
+                                *ngIf="paymentForm.get('billingAddress')?.invalid && paymentForm.get('billingAddress')?.touched">
+                                Billing address is required
+                            </p>
+                        </div>
+
+                        <!-- City, ZIP, Country Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">City
+                                    *</label>
+                                <input type="text" formControlName="city"
+                                    class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors text-sm"
+                                    [class.border-red-500]="paymentForm.get('city')?.invalid && paymentForm.get('city')?.touched"
+                                    placeholder="New York">
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400"
+                                    *ngIf="paymentForm.get('city')?.invalid && paymentForm.get('city')?.touched">
+                                    Required
+                                </p>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ZIP Code
+                                    *</label>
+                                <input type="text" formControlName="zipCode" maxlength="5"
+                                    class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors text-sm"
+                                    [class.border-red-500]="paymentForm.get('zipCode')?.invalid && paymentForm.get('zipCode')?.touched"
+                                    placeholder="12345">
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400"
+                                    *ngIf="paymentForm.get('zipCode')?.invalid && paymentForm.get('zipCode')?.touched">
+                                    Must be 5 digits
+                                </p>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Country
+                                    *</label>
+                                <input type="text" formControlName="country"
+                                    class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors text-sm"
+                                    [class.border-red-500]="paymentForm.get('country')?.invalid && paymentForm.get('country')?.touched"
+                                    placeholder="United States">
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400"
+                                    *ngIf="paymentForm.get('country')?.invalid && paymentForm.get('country')?.touched">
+                                    Required
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Sidebar - Order Summary (Fixed) -->
+            <div class="lg:col-span-1">
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 lg:sticky lg:top-4"
+                    *ngIf="bookingData">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-3">Order Summary</h3>
+
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400">Mentor</span>
+                            <span class="font-medium text-gray-900 dark:text-white">{{ bookingData.mentor.name }}</span>
+                        </div>
+
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400">Date</span>
+                            <span class="font-medium text-gray-900 dark:text-white">{{ bookingData.date | date:'MMM d,
+                                y' }}</span>
+                        </div>
+
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400">Time</span>
+                            <span class="font-medium text-gray-900 dark:text-white">{{ bookingData.timeSlot }}</span>
+                        </div>
+
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400">Duration</span>
+                            <span class="font-medium text-gray-900 dark:text-white">{{ bookingData.mentor.sessions }}
+                                min</span>
+                        </div>
+
+                        <div class="border-t border-gray-200 dark:border-gray-700 my-3"></div>
+
+                        <div class="flex justify-between text-base font-bold mb-4">
+                            <span class="text-gray-900 dark:text-white">Total</span>
+                            <span class="text-indigo-600 dark:text-indigo-400">${{ bookingData.mentor.price }}</span>
+                        </div>
+
+                        <button type="button"
+                            class="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                            [disabled]="paymentForm.invalid || processing" (click)="confirmPayment()">
+                            <svg *ngIf="!processing" class="w-5 h-5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <svg *ngIf="processing" class="w-5 h-5 animate-spin" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4v4m0 8v4m8-8h-4M8 12H4"></path>
+                            </svg>
+                            <span>{{ processing ? 'Processing...' : 'Confirm & Pay' }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div *ngIf="showConfirmationModal" class="fixed inset-0 z-50 overflow-y-auto" (click)="closeModal()">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+            <!-- Background overlay -->
+            <div class="fixed inset-0 transition-opacity bg-gray-500 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75">
+            </div>
+
+            <!-- Modal panel -->
+            <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
+                (click)="$event.stopPropagation()">
+
+                <!-- Success Icon -->
+                <div
+                    class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
+                    <svg class="h-10 w-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                        </path>
+                    </svg>
+                </div>
+
+                <!-- Modal Content -->
+                <div class="text-center">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Payment Successful!</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Your booking has been confirmed</p>
+
+                    <!-- Order Details -->
+                    <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 mb-4 text-left" *ngIf="bookingData">
+                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Booking Details</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Mentor:</span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ bookingData.mentor.name
+                                    }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Date:</span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ bookingData.date | date:'MMM d,
+                                    y' }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Time:</span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ bookingData.timeSlot }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Duration:</span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ bookingData.mentor.sessions }}
+                                    min</span>
+                            </div>
+                            <div class="border-t border-gray-200 dark:border-gray-600 my-2 pt-2 flex justify-between font-bold">
+                                <span class="text-gray-900 dark:text-white">Total Paid:</span>
+                                <span class="text-indigo-600 dark:text-indigo-400">${{ bookingData.mentor.price }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                        A confirmation email has been sent to {{ bookingData?.userDetails?.email }}
+                    </p>
+
+                    <!-- Action Button -->
+                    <button type="button"
+                        class="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-sm transition-colors"
+                        (click)="closeModal()">
+                        View My Bookings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

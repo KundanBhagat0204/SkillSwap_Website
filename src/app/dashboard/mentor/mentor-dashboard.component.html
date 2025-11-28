@@ -1,0 +1,104 @@
+<div class="mentor-dashboard">
+  <section class="stats-grid">
+    <article class="stat-card" *ngFor="let item of stats | keyvalue">
+      <p class="stat-label">{{ item.key | titlecase }}</p>
+      <p class="stat-value">{{ item.value }}</p>
+    </article>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <header>
+        <p class="kicker">Monthly Earnings</p>
+        <h3>Performance trend</h3>
+      </header>
+      <div class="earnings-legend">
+        <span class="legend-item">
+          <span class="legend-pill gradient"></span>
+          Projected earnings
+        </span>
+        <span class="legend-item">
+          <span class="legend-pill line"></span>
+          Actual trend
+        </span>
+      </div>
+      <div class="earnings-graph">
+        <svg [attr.viewBox]="getChartViewBox()" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="earningsGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#c084fc" stop-opacity="0.45"></stop>
+              <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"></stop>
+            </linearGradient>
+          </defs>
+          <path class="earnings-area" [attr.d]="getAreaPath()" fill="url(#earningsGradient)"></path>
+          <path class="earnings-line" [attr.d]="getLinePath()"></path>
+          <circle *ngFor="let entry of monthlyEarnings; index as idx"
+            class="earnings-dot"
+            [attr.cx]="getPointX(idx)"
+            [attr.cy]="getPointY(idx)"
+            r="4"
+            [attr.fill]="entry.color" />
+        </svg>
+      </div>
+      <div class="bar-chart months">
+        <div *ngFor="let entry of monthlyEarnings" class="bar-column">
+          <p class="bar-month">{{ entry.month }}</p>
+          <p class="bar-amount">${{ entry.amount }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <header>
+        <p class="kicker">Sessions by Topic</p>
+        <h3>Specialisation split</h3>
+      </header>
+      <ul class="topic-list">
+        <li *ngFor="let session of sessionsByTopic">
+          <div>
+            <p class="topic-name">{{ session.topic }}</p>
+            <p class="topic-meta">{{ session.count }} sessions</p>
+          </div>
+          <span class="topic-percentage">{{ session.percentage }}%</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <header>
+        <p class="kicker">Upcoming sessions</p>
+        <h3>Next 48 hours</h3>
+      </header>
+      <div class="session-list">
+        <article *ngFor="let session of upcomingSessions" class="session-item">
+          <div class="avatar">{{ session.avatar }}</div>
+          <div>
+            <p class="session-title">{{ session.studentName }}</p>
+            <p class="session-topic">{{ session.topic }}</p>
+            <p class="session-time">{{ session.date | date:'MMM d' }} · {{ session.time }} · {{ session.duration }}</p>
+          </div>
+          <button class="btn ghost">Join</button>
+        </article>
+      </div>
+    </div>
+
+    <div class="card">
+      <header>
+        <p class="kicker">Recent reviews</p>
+        <h3>What mentees said</h3>
+      </header>
+      <ul class="reviews">
+        <li *ngFor="let review of recentReviews">
+          <div>
+            <p class="review-name">{{ review.studentName }}</p>
+            <p class="review-date">{{ review.date }}</p>
+            <p class="review-comment">“{{ review.comment }}”</p>
+          </div>
+          <span class="review-rating">{{ review.rating }}★</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>

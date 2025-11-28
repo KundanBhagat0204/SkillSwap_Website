@@ -1,0 +1,65 @@
+<div class="about-page">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">About SkillSwap</h1>
+            <p class="hero-subtitle">Connecting learners with industry experts for micro-mentorship sessions</p>
+        </div>
+    </div>
+
+    <!-- Mission Section -->
+    <div class="mission-section">
+        <div class="container">
+            <h2 class="section-title">Our Mission</h2>
+            <p class="mission-text">
+                SkillSwap was founded on the belief that everyone deserves access to quality mentorship.
+                We're breaking down barriers by offering short, focused sessions with industry experts—no
+                long-term commitments, no expensive courses, just personalized guidance when you need it most.
+            </p>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="how-it-works-section">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-grid">
+                <div *ngFor="let step of steps" class="step-card">
+                    <div class="step-number">{{ step.number }}</div>
+                    <h3 class="step-title">{{ step.title }}</h3>
+                    <p class="step-description">{{ step.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Choose Us -->
+    <div class="benefits-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose SkillSwap?</h2>
+            <div class="benefits-grid">
+                <div *ngFor="let benefit of benefits" class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h3 class="benefit-title">{{ benefit.title }}</h3>
+                    <p class="benefit-description">{{ benefit.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Start Learning?</h2>
+            <p class="cta-subtitle">Join thousands of learners advancing their skills with expert mentorship</p>
+            <div class="cta-buttons">
+                <a routerLink="/mentors" class="btn btn-primary">Browse Mentors</a>
+                <a routerLink="/auth/register" class="btn btn-secondary">Get Started Free</a>
+            </div>
+        </div>
+    </div>
+</div>

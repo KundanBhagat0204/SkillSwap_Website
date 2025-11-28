@@ -1,0 +1,50 @@
+.mentee-card {
+  background: #fff;
+  border-radius: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+}
+
+.section-title {
+  color: #0f172a;
+}
+
+.card-heading {
+  color: #0f172a;
+}
+
+.muted-text {
+  color: #475569;
+}
+
+.cta-btn {
+  color: #0f172a;
+  border-color: rgba(15, 23, 42, 0.1);
+}
+
+.recommend-card {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.02), rgba(15, 23, 42, 0.04));
+}
+
+:host-context(.dark) .mentee-card {
+  background: #0b1220;
+  border-color: rgba(148, 163, 184, 0.2);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.5);
+  color: #c7d2fe;
+}
+
+:host-context(.dark) .section-title,
+:host-context(.dark) .card-heading,
+:host-context(.dark) .cta-btn {
+  color: #e2e8ff;
+}
+
+:host-context(.dark) .muted-text {
+  color: #8ea6c9;
+}
+
+:host-context(.dark) .recommend-card {
+  background: rgba(37, 99, 235, 0.15);
+  border-color: rgba(148, 163, 184, 0.25);
+}

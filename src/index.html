@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>SkillSwap</title>
+  <base href="/" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="SkillSwap — Book 25-60 minute micro-mentorship sessions instantly." />
+  <!-- Tailwind Play CDN for prototyping + custom colors -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              400: '#4EA8FF',
+              500: '#1977FF',
+              600: '#0B6EFD'
+            },
+            accent: {
+              600: '#FF6B6B'
+            },
+            muted: {
+              500: '#6B7280',
+              700: '#1F2937'
+            },
+            bg: '#F8FAFC',
+            card: '#FFFFFF'
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-bg dark:bg-gray-900 text-muted-700 dark:text-gray-100 transition-colors duration-300">
+  <app-root></app-root>
+</body>
+
+</html>

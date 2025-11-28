@@ -1,0 +1,51 @@
+/* Global styles */
+html,
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* slate-900 - deep navy blue */
+    color: #000000;
+    /* slate-100 - light gray text */
+    min-height: 100vh;
+}
+
+/* For cards/content areas */
+.card {
+    background-color: #1e293b;
+    /* slate-800 */
+    color: #e2e8f0;
+    /* slate-200 */
+}
+
+.btn-primary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.btn-outline {
+    padding: 0.7rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-outline:hover {
+    background: rgba(59, 130, 246, 0.1);
+}

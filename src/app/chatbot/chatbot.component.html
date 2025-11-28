@@ -1,0 +1,105 @@
+<div class="chatbot-container">
+    <!-- Futuristic Header -->
+    <div class="chatbot-header">
+        <div class="header-content">
+            <div class="ai-avatar">
+                <div class="avatar-glow"></div>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+            </div>
+            <div class="header-info">
+                <h2 class="header-title">AI Assistant</h2>
+                <p class="header-status">
+                    <span class="status-dot"></span>
+                    Online
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="chat-messages" #messagesContainer>
+        <div *ngFor="let msg of messages" class="message-wrapper" [class.user-wrapper]="msg.type === 'user'"
+            [class.assistant-wrapper]="msg.type === 'assistant'">
+
+            <!-- Assistant Avatar -->
+            <div *ngIf="msg.type === 'assistant'" class="message-avatar">
+                <div class="avatar-circle">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Message Bubble -->
+            <div class="message-bubble" [class.user-message]="msg.type === 'user'"
+                [class.assistant-message]="msg.type === 'assistant'">
+                <div class="message-content">{{ msg.content }}</div>
+
+                <!-- Display events if returned -->
+                <div *ngIf="msg.data?.events" class="events-list">
+                    <div *ngFor="let event of msg.data.events" class="event-item">
+                        <strong>{{ event.number }}. {{ event.name }}</strong>
+                        <p>Date: {{ event.date }} | Price: {{ event.price }}</p>
+                        <p>Available: {{ event.available }} seats</p>
+                    </div>
+                </div>
+
+                <div class="message-time">{{ msg.timestamp | date:'HH:mm' }}</div>
+            </div>
+
+            <!-- User Avatar -->
+            <div *ngIf="msg.type === 'user'" class="message-avatar">
+                <div class="avatar-circle user-avatar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thinking Dots Animation -->
+        <div *ngIf="isTyping" class="message-wrapper assistant-wrapper">
+            <div class="message-avatar">
+                <div class="avatar-circle">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="message-bubble assistant-message typing-indicator">
+                <div class="thinking-dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="chat-input-area">
+        <div class="input-wrapper">
+            <input type="text" [(ngModel)]="inputMessage" (keyup.enter)="sendMessage()"
+                placeholder="Type your message..." [disabled]="loading" class="chat-input">
+
+            <button (click)="sendMessage()" [disabled]="loading || !inputMessage.trim()" class="send-button">
+                <svg *ngIf="!loading" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+                <svg *ngIf="loading" class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>

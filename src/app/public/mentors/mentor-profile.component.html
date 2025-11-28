@@ -1,0 +1,52 @@
+<div class="p-8" *ngIf="mentor">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-8">
+        <div class="flex items-center gap-6 mb-6">
+            <div
+                class="w-24 h-24 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-2xl font-bold text-gray-500 dark:text-gray-400">
+                {{ mentor.avatar }}
+            </div>
+            <div>
+                <h1 class="text-3xl font-bold text-muted-700 dark:text-white">{{ mentor.name }}</h1>
+                <p class="text-primary-600 dark:text-primary-400 font-medium">{{ mentor.title }}</p>
+                <div class="flex items-center gap-2 mt-2">
+                    <span class="text-yellow-500">★</span>
+                    <span class="font-medium text-gray-700 dark:text-gray-300">{{ mentor.rating }}</span>
+                    <span class="text-gray-400">({{ mentor.sessions }} sessions)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="md:col-span-2">
+                <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">About</h2>
+                <p class="text-muted-500 dark:text-gray-300 leading-relaxed">
+                    {{ mentor.bio }}
+                </p>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4 text-gray-900 dark:text-white">Expertise</h2>
+                <div class="flex flex-wrap gap-2">
+                    <span *ngFor="let skill of mentor.expertise"
+                        class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm">
+                        {{ skill }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="bg-bg dark:bg-gray-700 p-6 rounded-xl h-fit">
+                <h3 class="font-semibold mb-4 text-gray-900 dark:text-white">Book a Session</h3>
+                <div class="mb-6">
+                    <span class="text-3xl font-bold text-gray-900 dark:text-white">${{ mentor.price }}</span>
+                    <span class="text-gray-500 dark:text-gray-400">/ session</span>
+                </div>
+                <button [routerLink]="['/booking']" [queryParams]="{ mentorId: mentor.id }"
+                    class="w-full py-3 rounded-xl bg-primary-600 text-white font-medium hover:bg-primary-500 transition">
+                    Book Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!mentor" class="p-8 text-center">
+    <p class="text-gray-500 dark:text-gray-400">Loading mentor profile...</p>
+</div>

@@ -1,0 +1,43 @@
+<div class="referral-card">
+    <header class="referral-header">
+        <div>
+            <p class="eyebrow">Golden tickets</p>
+            <h2>Refer & Earn</h2>
+            <p class="description">Gift 1 month of Premium to a friend and help them get started!</p>
+        </div>
+        <span class="ticket-pill">
+            {{ currentUser?.goldenTickets || 0 }} left
+        </span>
+    </header>
+
+    <div class="content" *ngIf="(currentUser?.goldenTickets || 0) > 0; else noTickets">
+        <div class="link-section">
+            <label>Your unique link</label>
+            <div class="input-group">
+                <input type="text" [value]="referralLink" readonly>
+                <button type="button" (click)="copyLink()">Copy</button>
+            </div>
+            <small>Share it anywhere to invite mentees instantly.</small>
+        </div>
+
+        <div class="divider"><span>or</span></div>
+
+        <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()" class="email-form">
+            <label>Invite by email</label>
+            <div class="input-group">
+                <input type="email" formControlName="email" placeholder="friend@example.com">
+                <button type="submit" [disabled]="inviteForm.invalid || isLoading">
+                    {{ isLoading ? 'Sending…' : 'Send invite' }}
+                </button>
+            </div>
+            <div *ngIf="successMessage" class="success-msg">{{ successMessage }}</div>
+        </form>
+    </div>
+
+    <ng-template #noTickets>
+        <div class="empty-state">
+            <p>You've used all your Golden Tickets! 🌟</p>
+            <p>Keep mentoring to earn more.</p>
+        </div>
+    </ng-template>
+</div>

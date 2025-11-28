@@ -1,0 +1,243 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 py-4 px-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Page Header -->
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">My Sessions</h1>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Manage your mentorship sessions</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-4">
+            <div class="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+                <button class="px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap"
+                    [class.text-indigo-600]="activeTab === 'booked'"
+                    [class.dark:text-indigo-400]="activeTab === 'booked'" [class.border-b-2]="activeTab === 'booked'"
+                    [class.border-indigo-600]="activeTab === 'booked'"
+                    [class.dark:border-indigo-400]="activeTab === 'booked'"
+                    [class.text-gray-600]="activeTab !== 'booked'" [class.dark:text-gray-400]="activeTab !== 'booked'"
+                    (click)="setActiveTab('booked')">
+                    Upcoming ({{ bookedSessions.length }})
+                </button>
+                <button class="px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap"
+                    [class.text-indigo-600]="activeTab === 'ongoing'"
+                    [class.dark:text-indigo-400]="activeTab === 'ongoing'" [class.border-b-2]="activeTab === 'ongoing'"
+                    [class.border-indigo-600]="activeTab === 'ongoing'"
+                    [class.dark:border-indigo-400]="activeTab === 'ongoing'"
+                    [class.text-gray-600]="activeTab !== 'ongoing'" [class.dark:text-gray-400]="activeTab !== 'ongoing'"
+                    (click)="setActiveTab('ongoing')">
+                    Ongoing ({{ ongoingSessions.length }})
+                </button>
+                <button class="px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap"
+                    [class.text-indigo-600]="activeTab === 'completed'"
+                    [class.dark:text-indigo-400]="activeTab === 'completed'"
+                    [class.border-b-2]="activeTab === 'completed'" [class.border-indigo-600]="activeTab === 'completed'"
+                    [class.dark:border-indigo-400]="activeTab === 'completed'"
+                    [class.text-gray-600]="activeTab !== 'completed'"
+                    [class.dark:text-gray-400]="activeTab !== 'completed'" (click)="setActiveTab('completed')">
+                    Completed ({{ completedSessions.length }})
+                </button>
+                <button class="px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap"
+                    [class.text-indigo-600]="activeTab === 'canceled'"
+                    [class.dark:text-indigo-400]="activeTab === 'canceled'"
+                    [class.border-b-2]="activeTab === 'canceled'" [class.border-indigo-600]="activeTab === 'canceled'"
+                    [class.dark:border-indigo-400]="activeTab === 'canceled'"
+                    [class.text-gray-600]="activeTab !== 'canceled'"
+                    [class.dark:text-gray-400]="activeTab !== 'canceled'" (click)="setActiveTab('canceled')">
+                    Canceled ({{ canceledSessions.length }})
+                </button>
+            </div>
+        </div>
+
+        <!-- Booked Sessions -->
+        <div *ngIf="activeTab === 'booked'" class="space-y-3">
+            <div *ngFor="let session of bookedSessions"
+                class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow">
+                <div class="flex items-start gap-4">
+                    <!-- Mentor Avatar -->
+                    <div
+                        class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-300 font-bold flex-shrink-0">
+                        {{ session.mentorAvatar }}
+                    </div>
+
+                    <!-- Session Details -->
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-1">{{ session.mentorName }}
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ session.topic }}</p>
+                        <div class="flex flex-wrap gap-3 text-xs text-gray-600 dark:text-gray-400">
+                            <span class="flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                {{ session.date | date:'MMM d, y' }}
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                {{ session.time }}
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                ${{ session.price }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-col gap-2">
+                        <button
+                            class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded transition-colors"
+                            (click)="joinSession(session.id)">
+                            Join
+                        </button>
+                        <button
+                            class="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded transition-colors"
+                            (click)="rescheduleSession(session.id)">
+                            Reschedule
+                        </button>
+                        <button
+                            class="px-3 py-1.5 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 text-sm font-medium rounded transition-colors"
+                            (click)="cancelSession(session.id)">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="bookedSessions.length === 0" class="text-center py-12">
+                <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p class="text-gray-600 dark:text-gray-400">No upcoming sessions</p>
+            </div>
+        </div>
+
+        <!-- Ongoing Sessions -->
+        <div *ngIf="activeTab === 'ongoing'" class="space-y-3">
+            <div *ngFor="let session of ongoingSessions"
+                class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border-2 border-green-500 dark:border-green-600 p-4">
+                <div class="flex items-start gap-4">
+                    <div
+                        class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center text-green-600 dark:text-green-300 font-bold flex-shrink-0">
+                        {{ session.mentorAvatar }}
+                    </div>
+
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ session.mentorName }}
+                            </h3>
+                            <span
+                                class="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium rounded-full flex items-center gap-1">
+                                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                Live Now
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ session.topic }}</p>
+                        <div class="flex flex-wrap gap-3 text-xs text-gray-600 dark:text-gray-400">
+                            <span>{{ session.time }}</span>
+                            <span>{{ session.duration }} min</span>
+                        </div>
+                    </div>
+
+                    <button
+                        class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded transition-colors"
+                        (click)="joinSession(session.id)">
+                        Join Now
+                    </button>
+                </div>
+            </div>
+
+            <div *ngIf="ongoingSessions.length === 0" class="text-center py-12">
+                <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <p class="text-gray-600 dark:text-gray-400">No ongoing sessions</p>
+            </div>
+        </div>
+
+        <!-- Completed Sessions -->
+        <div *ngIf="activeTab === 'completed'" class="space-y-3">
+            <div *ngFor="let session of completedSessions"
+                class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 opacity-75">
+                <div class="flex items-start gap-4">
+                    <div
+                        class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 font-bold flex-shrink-0">
+                        {{ session.mentorAvatar }}
+                    </div>
+
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-1">{{ session.mentorName }}
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ session.topic }}</p>
+                        <div class="flex flex-wrap gap-3 text-xs text-gray-600 dark:text-gray-400">
+                            <span>{{ session.date | date:'MMM d, y' }}</span>
+                            <span>{{ session.time }}</span>
+                            <span class="text-green-600 dark:text-green-400 font-medium">✓ Completed</span>
+                        </div>
+                    </div>
+
+                    <button
+                        class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-sm font-medium rounded transition-colors">
+                        Leave Review
+                    </button>
+                </div>
+            </div>
+
+            <div *ngIf="completedSessions.length === 0" class="text-center py-12">
+                <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p class="text-gray-600 dark:text-gray-400">No completed sessions</p>
+            </div>
+        </div>
+
+        <!-- Canceled Sessions -->
+        <div *ngIf="activeTab === 'canceled'" class="space-y-3">
+            <div *ngFor="let session of canceledSessions"
+                class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-red-200 dark:border-red-900 p-4 opacity-75">
+                <div class="flex items-start gap-4">
+                    <div
+                        class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center text-red-600 dark:text-red-400 font-bold flex-shrink-0">
+                        {{ session.mentorAvatar }}
+                    </div>
+
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-1">{{ session.mentorName }}
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ session.topic }}</p>
+                        <div class="flex flex-wrap gap-3 text-xs text-gray-600 dark:text-gray-400">
+                            <span>{{ session.date | date:'MMM d, y' }}</span>
+                            <span>{{ session.time }}</span>
+                            <span class="text-red-600 dark:text-red-400 font-medium">✗ Canceled</span>
+                        </div>
+                    </div>
+
+                    <button
+                        class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded transition-colors">
+                        Book Again
+                    </button>
+                </div>
+            </div>
+
+            <div *ngIf="canceledSessions.length === 0" class="text-center py-12">
+                <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <p class="text-gray-600 dark:text-gray-400">No canceled sessions</p>
+            </div>
+        </div>
+    </div>
+</div>

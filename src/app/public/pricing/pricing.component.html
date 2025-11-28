@@ -1,0 +1,80 @@
+<div class="pricing-page">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Simple, Transparent Pricing</h1>
+            <p class="hero-subtitle">Choose the plan that fits your learning goals</p>
+        </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="pricing-section">
+        <div class="container">
+            <div class="pricing-grid">
+                <div *ngFor="let plan of plans" class="pricing-card" [class.popular]="plan.popular">
+
+                    <!-- Popular Badge -->
+                    <div class="popular-badge" *ngIf="plan.popular">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        Most Popular
+                    </div>
+
+                    <!-- Plan Header -->
+                    <div class="plan-header">
+                        <h3 class="plan-name">{{ plan.name }}</h3>
+                        <p class="plan-description">{{ plan.description }}</p>
+                        <div class="plan-price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">{{ plan.price }}</span>
+                            <span class="price-period">/{{ plan.period }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Features List -->
+                    <ul class="features-list">
+                        <li *ngFor="let feature of plan.features" class="feature-item">
+                            <svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            {{ feature }}
+                        </li>
+                    </ul>
+
+                    <!-- CTA Button -->
+                    <button class="plan-button" [class.primary]="plan.popular" (click)="selectPlan(plan)">
+                        {{ plan.cta }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div *ngFor="let faq of faqs" class="faq-item">
+                    <h3 class="faq-question">{{ faq.question }}</h3>
+                    <p class="faq-answer">{{ faq.answer }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Still have questions?</h2>
+            <p class="cta-subtitle">Our team is here to help you choose the right plan</p>
+            <div class="cta-buttons">
+                <a routerLink="/about" class="btn btn-secondary">Learn More</a>
+                <a href="mailto:support@skillswap.com" class="btn btn-primary">Contact Support</a>
+            </div>
+        </div>
+    </div>
+</div>
