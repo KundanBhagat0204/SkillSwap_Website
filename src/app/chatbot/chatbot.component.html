@@ -1,5 +1,4 @@
 <div class="chatbot-container">
-    <!-- Futuristic Header -->
     <div class="chatbot-header">
         <div class="header-content">
             <div class="ai-avatar">
@@ -19,7 +18,6 @@
         </div>
     </div>
 
-    <!-- Chat Messages -->
     <div class="chat-messages" #messagesContainer>
         <div *ngFor="let msg of messages" class="message-wrapper" [class.user-wrapper]="msg.type === 'user'"
             [class.assistant-wrapper]="msg.type === 'assistant'">
