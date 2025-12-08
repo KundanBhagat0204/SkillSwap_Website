@@ -10,6 +10,13 @@ export class MentorsComponent implements OnInit {
     selectedCategory = 'all';
     searchQuery = '';
     sortBy = 'rating';
+    searchShortcuts = ['React', 'Product Strategy', 'UX Research', 'Data Science'];
+    sortOptions = [
+        { id: 'rating', label: 'Top rated' },
+        { id: 'sessions', label: 'Most sessions' },
+        { id: 'price-low', label: 'Budget friendly' },
+        { id: 'price-high', label: 'Premium' }
+    ];
 
     categories = [
         { id: 'all', name: 'All Mentors', icon: '🌟' },
@@ -30,13 +37,19 @@ export class MentorsComponent implements OnInit {
         });
     }
 
+    get selectedSortLabel(): string {
+        return this.sortOptions.find(o => o.id === this.sortBy)?.label ?? '';
+    }
+
     get filteredMentors(): Mentor[] {
-        let filtered = this.allMentors;
+        // work on a shallow copy to avoid mutating source during sort
+        let filtered = [...this.allMentors];
 
         // Filter by category
         if (this.selectedCategory !== 'all') {
+            const category = this.selectedCategory.toLowerCase();
             filtered = filtered.filter(m =>
-                m.expertise.some(e => e.toLowerCase().includes(this.selectedCategory))
+                m.expertise.some(e => e.toLowerCase().includes(category))
             );
         }
 
@@ -64,7 +77,39 @@ export class MentorsComponent implements OnInit {
         return filtered;
     }
 
+    themeClass(mentor: Mentor): string {
+        const expertise = (mentor.expertise || []).map(e => e.toLowerCase());
+        if (expertise.some(e => ['backend', 'node', 'api', 'cloud'].some(k => e.includes(k)))) {
+            return 'theme-backend';
+        }
+        if (expertise.some(e => ['frontend', 'ui', 'react', 'angular', 'css'].some(k => e.includes(k)))) {
+            return 'theme-frontend';
+        }
+        if (expertise.some(e => ['design', 'ux', 'ui/ux', 'figma'].some(k => e.includes(k)))) {
+            return 'theme-design';
+        }
+        if (expertise.some(e => ['product', 'strategy', 'pm'].some(k => e.includes(k)))) {
+            return 'theme-product';
+        }
+        if (expertise.some(e => ['data', 'ml', 'ai', 'analytics', 'python'].some(k => e.includes(k)))) {
+            return 'theme-data';
+        }
+        return 'theme-default';
+    }
+
     selectCategory(categoryId: string) {
         this.selectedCategory = categoryId;
+    }
+
+    applySearchShortcut(shortcut: string) {
+        this.searchQuery = shortcut;
+    }
+
+    clearSearch() {
+        this.searchQuery = '';
+    }
+
+    setSort(option: string) {
+        this.sortBy = option;
     }
 }

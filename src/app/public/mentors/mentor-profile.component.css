@@ -1,1 +1,349 @@
-/* Mentor Profile component styles */
+/* Mentor Profile – themed, detailed layout */
+.profile-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+    color: #0f172a;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.profile-loading {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: #475569;
+}
+
+.profile-hero {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr;
+    gap: 1.5rem;
+    padding: 1.75rem;
+    border-radius: 24px;
+    background: linear-gradient(135deg, var(--bg-1, #0f172a), var(--bg-2, #1e3a8a));
+    color: #f8fafc;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.4);
+    margin-bottom: 1.75rem;
+}
+
+.hero-left {
+    display: flex;
+    gap: 1rem;
+}
+
+.avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 22px;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, var(--accent, #6366f1), var(--accent-2, #22d3ee));
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+}
+
+.hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.hero-name {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    line-height: 1.05;
+}
+
+.hero-title {
+    margin: 0;
+    color: rgba(248, 250, 252, 0.85);
+    font-weight: 600;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    align-items: center;
+    color: rgba(248, 250, 252, 0.8);
+    font-weight: 600;
+}
+
+.hero-stats .icon {
+    color: #facc15;
+    margin-right: 0.25rem;
+}
+
+.hero-stats .dot {
+    opacity: 0.4;
+}
+
+.hero-stats .price {
+    color: #bbf7d0;
+}
+
+.tags {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #f8fafc;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.pill.availability.available {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.4);
+    color: #bbf7d0;
+}
+
+.hero-cta {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.cta-copy {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.cta-headline {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.cta-sub {
+    margin: 0;
+    color: rgba(248, 250, 252, 0.82);
+}
+
+.btn {
+    border: none;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent, #6366f1), var(--accent-2, #22d3ee));
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 1.25rem;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+}
+
+.card.wide {
+    grid-column: 1 / -1;
+}
+
+.card-head {
+    display: grid;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.eyebrow {
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.body-text {
+    margin: 0;
+    color: #334155;
+    line-height: 1.65;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+}
+
+.stat-block {
+    padding: 0.9rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.label {
+    margin: 0;
+    color: #94a3b8;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.value {
+    margin: 0.15rem 0 0;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: #0f172a;
+}
+
+.hint {
+    margin: 0.15rem 0 0;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.pill-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.pill-group .pill {
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    color: #4338ca;
+    font-weight: 700;
+}
+
+.highlight-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.65rem;
+}
+
+.highlight-list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.highlight-list .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent, #6366f1);
+    margin-top: 0.25rem;
+}
+
+.highlight-title {
+    margin: 0;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.highlight-copy {
+    margin: 0.15rem 0 0;
+    color: #475569;
+}
+
+/* Themes */
+.theme-backend {
+    --accent: #0ea5e9;
+    --accent-2: #22d3ee;
+    --bg-1: #0f172a;
+    --bg-2: #0ea5e9;
+}
+
+.theme-frontend {
+    --accent: #6366f1;
+    --accent-2: #a855f7;
+    --bg-1: #0f172a;
+    --bg-2: #4f46e5;
+}
+
+.theme-design {
+    --accent: #ec4899;
+    --accent-2: #8b5cf6;
+    --bg-1: #111827;
+    --bg-2: #be185d;
+}
+
+.theme-product {
+    --accent: #f59e0b;
+    --accent-2: #f97316;
+    --bg-1: #0f172a;
+    --bg-2: #f59e0b;
+}
+
+.theme-data {
+    --accent: #10b981;
+    --accent-2: #22c55e;
+    --bg-1: #0f172a;
+    --bg-2: #0f766e;
+}
+
+.theme-default {
+    --accent: #6366f1;
+    --accent-2: #22d3ee;
+    --bg-1: #0f172a;
+    --bg-2: #312e81;
+}
+
+@media (max-width: 900px) {
+    .profile-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-left {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 620px) {
+    .hero-left {
+        flex-direction: column;
+    }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}

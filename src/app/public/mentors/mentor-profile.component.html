@@ -1,52 +1,115 @@
-<div class="p-8" *ngIf="mentor">
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-8">
-        <div class="flex items-center gap-6 mb-6">
-            <div
-                class="w-24 h-24 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-2xl font-bold text-gray-500 dark:text-gray-400">
-                {{ mentor.avatar }}
-            </div>
-            <div>
-                <h1 class="text-3xl font-bold text-muted-700 dark:text-white">{{ mentor.name }}</h1>
-                <p class="text-primary-600 dark:text-primary-400 font-medium">{{ mentor.title }}</p>
-                <div class="flex items-center gap-2 mt-2">
-                    <span class="text-yellow-500">★</span>
-                    <span class="font-medium text-gray-700 dark:text-gray-300">{{ mentor.rating }}</span>
-                    <span class="text-gray-400">({{ mentor.sessions }} sessions)</span>
+<div class="profile-page" *ngIf="mentor" [ngClass]="themeClass(mentor)">
+    <section class="profile-hero">
+        <div class="hero-left">
+            <div class="avatar">{{ mentor.avatar }}</div>
+            <div class="hero-meta">
+                <div class="pill availability" [class.available]="mentor.available">
+                    {{ mentor.available ? 'Accepting mentees' : 'Waitlist' }}
+                </div>
+                <h1 class="hero-name">{{ mentor.name }}</h1>
+                <p class="hero-title">{{ mentor.title }}</p>
+                <div class="hero-stats">
+                    <span class="stat"><span class="icon">★</span>{{ mentor.rating }} rating</span>
+                    <span class="dot">•</span>
+                    <span class="stat">{{ mentor.sessions }} sessions</span>
+                    <span class="dot">•</span>
+                    <span class="stat price">\${{ mentor.price }}/session</span>
+                </div>
+                <div class="tags">
+                    <span *ngFor="let skill of mentor.expertise" class="tag">#{{ skill }}</span>
                 </div>
             </div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="md:col-span-2">
-                <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">About</h2>
-                <p class="text-muted-500 dark:text-gray-300 leading-relaxed">
-                    {{ mentor.bio }}
-                </p>
-
-                <h2 class="text-xl font-semibold mt-8 mb-4 text-gray-900 dark:text-white">Expertise</h2>
-                <div class="flex flex-wrap gap-2">
-                    <span *ngFor="let skill of mentor.expertise"
-                        class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm">
-                        {{ skill }}
-                    </span>
-                </div>
+        <div class="hero-cta">
+            <div class="cta-copy">
+                <p class="eyebrow">1:1 mentorship</p>
+                <p class="cta-headline">Book a focused session</p>
+                <p class="cta-sub">{{ mentor.expertise[0] || 'Mentorship' }} • {{ mentor.available ? 'Typically replies
+                    within a day' : 'Reach out to join waitlist' }}</p>
             </div>
-
-            <div class="bg-bg dark:bg-gray-700 p-6 rounded-xl h-fit">
-                <h3 class="font-semibold mb-4 text-gray-900 dark:text-white">Book a Session</h3>
-                <div class="mb-6">
-                    <span class="text-3xl font-bold text-gray-900 dark:text-white">${{ mentor.price }}</span>
-                    <span class="text-gray-500 dark:text-gray-400">/ session</span>
-                </div>
-                <button [routerLink]="['/booking']" [queryParams]="{ mentorId: mentor.id }"
-                    class="w-full py-3 rounded-xl bg-primary-600 text-white font-medium hover:bg-primary-500 transition">
-                    Book Now
-                </button>
-            </div>
+            <button class="btn primary" [routerLink]="['/booking']" [queryParams]="{ mentorId: mentor.id }">
+                Book this mentor
+            </button>
         </div>
-    </div>
+    </section>
+
+    <section class="content-grid">
+        <article class="card">
+            <header class="card-head">
+                <span class="eyebrow">About</span>
+                <h2>How I can help</h2>
+            </header>
+            <p class="body-text">{{ mentor.bio }}</p>
+        </article>
+
+        <article class="card">
+            <header class="card-head">
+                <span class="eyebrow">Session details</span>
+                <h2>What to expect</h2>
+            </header>
+            <div class="stat-grid">
+                <div class="stat-block">
+                    <p class="label">Format</p>
+                    <p class="value">45–60 min video</p>
+                    <p class="hint">Structured, outcome-focused call</p>
+                </div>
+                <div class="stat-block">
+                    <p class="label">Availability</p>
+                    <p class="value">{{ mentor.available ? 'Open for booking' : 'Waitlist' }}</p>
+                    <p class="hint">{{ mentor.available ? 'Slots this week' : 'Ping to get notified' }}</p>
+                </div>
+                <div class="stat-block">
+                    <p class="label">Rate</p>
+                    <p class="value">\${{ mentor.price }}</p>
+                    <p class="hint">Per session</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <header class="card-head">
+                <span class="eyebrow">Focus areas</span>
+                <h2>Where we’ll go deep</h2>
+            </header>
+            <div class="pill-group">
+                <span *ngFor="let skill of mentor.expertise" class="pill">{{ skill }}</span>
+            </div>
+        </article>
+
+        <article class="card wide">
+            <header class="card-head">
+                <span class="eyebrow">Highlights</span>
+                <h2>Why mentees book me</h2>
+            </header>
+            <ul class="highlight-list">
+                <li>
+                    <span class="dot"></span>
+                    <div>
+                        <p class="highlight-title">Proven outcomes</p>
+                        <p class="highlight-copy">Backed by {{ mentor.sessions }} sessions and a {{ mentor.rating }} ★
+                            rating.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="dot"></span>
+                    <div>
+                        <p class="highlight-title">Deep craft</p>
+                        <p class="highlight-copy">Specialized in {{ mentor.expertise.slice(0, 3).join(', ') || 'core
+                            stack' }}.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="dot"></span>
+                    <div>
+                        <p class="highlight-title">Actionable sessions</p>
+                        <p class="highlight-copy">We’ll co-create a plan and leave with next steps.</p>
+                    </div>
+                </li>
+            </ul>
+        </article>
+    </section>
 </div>
 
-<div *ngIf="!mentor" class="p-8 text-center">
-    <p class="text-gray-500 dark:text-gray-400">Loading mentor profile...</p>
+<div *ngIf="!mentor" class="profile-loading">
+    <p>Loading mentor profile...</p>
 </div>

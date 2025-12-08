@@ -1,59 +1,155 @@
-<!-- app.component.html -->
 <div
   class="min-h-screen flex flex-col bg-bg dark:bg-gray-900 text-muted-700 dark:text-gray-100 transition-colors duration-300">
   <!-- Topbar / Navbar -->
   <header
     class="bg-white/60 dark:bg-gray-900/60 backdrop-blur sticky top-0 z-30 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <nav class="flex items-center justify-between h-16" aria-label="Top navigation">
-        <div class="flex items-center gap-4">
+    <div class="max-w-7xl mx-auto px-2 xs:px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8">
+      <nav class="flex items-center justify-between h-11 xs:h-12 sm:h-14 md:h-16" aria-label="Top navigation">
+        <!-- Logo -->
+        <div class="flex items-center gap-1.5 xs:gap-2 sm:gap-2.5 md:gap-3 lg:gap-4 flex-shrink-0 min-w-0">
           <a routerLink="/"
-            class="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded">
-            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary-500 text-white font-semibold">
-              SS</div>
-            <div class="hidden sm:block">
-              <div class="text-muted-900 dark:text-white font-semibold">SkillSwap</div>
-              <div class="text-xs text-muted-500 dark:text-gray-400">Micro-mentorship, fast.</div>
+            class="flex items-center gap-1.5 xs:gap-2 sm:gap-2.5 md:gap-3 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded transition-opacity hover:opacity-90">
+            <div
+              class="w-7 h-7 xs:w-8 xs:h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center rounded-lg bg-primary-500 text-white text-[10px] xs:text-xs sm:text-sm md:text-base font-semibold flex-shrink-0">
+              SS
             </div>
+          </a>
+          <div class="hidden xs:block min-w-0">
+            <div
+              class="text-[11px] xs:text-xs sm:text-sm md:text-base xl:text-lg text-muted-900 dark:text-white font-semibold leading-tight truncate">
+              SkillSwap
+            </div>
+            <div
+              class="text-[9px] xs:text-[10px] sm:text-xs text-muted-500 dark:text-gray-400 leading-tight truncate">
+              Micro-mentorship, fast.
+            </div>
+          </div>
+        </div>
+
+        <!-- Tablet/Desktop Navigation -->
+        <div class="hidden md:flex items-center gap-1 xl:gap-2 2xl:gap-3">
+          <a routerLink="/mentors"
+            class="px-1.5 xl:px-2 2xl:px-3 py-1 xl:py-1.5 2xl:py-2 rounded-lg text-xs xl:text-sm 2xl:text-base hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 transition-colors whitespace-nowrap">
+            Browse mentors
+          </a>
+          <a routerLink="/booking"
+            class="px-1.5 xl:px-2 2xl:px-3 py-1 xl:py-1.5 2xl:py-2 rounded-lg text-xs xl:text-sm 2xl:text-base hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 transition-colors whitespace-nowrap">
+            Book
+          </a>
+          <a routerLink="/pricing"
+            class="px-1.5 xl:px-2 2xl:px-3 py-1 xl:py-1.5 2xl:py-2 rounded-lg text-xs xl:text-sm 2xl:text-base hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 transition-colors whitespace-nowrap">
+            Pricing
+          </a>
+          <a routerLink="/chatbot"
+            class="px-1.5 xl:px-2 2xl:px-3 py-1 xl:py-1.5 2xl:py-2 rounded-lg text-xs xl:text-sm 2xl:text-base hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 transition-colors whitespace-nowrap">
+            AI Chat
+          </a>
+          <a routerLink="/about"
+            class="px-1.5 xl:px-2 2xl:px-3 py-1 xl:py-1.5 2xl:py-2 rounded-lg text-xs xl:text-sm 2xl:text-base hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 transition-colors whitespace-nowrap">
+            About
+          </a>
+          <a *ngIf="isMentor" (click)="openReferralModal()"
+            class="px-1.5 xl:px-2 2xl:px-3 py-1 xl:py-1.5 2xl:py-2 rounded-lg text-xs xl:text-sm 2xl:text-base hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 cursor-pointer transition-colors whitespace-nowrap">
+            Refer & Earn
           </a>
         </div>
 
-        <div class="hidden md:flex items-center gap-3">
-          <a routerLink="/mentors"
-            class="px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200">Browse
-            mentors</a>
-          <a routerLink="/booking"
-            class="px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200">Book</a>
-          <a routerLink="/pricing"
-            class="px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200">Pricing</a>
-          <a routerLink="/chatbot"
-            class="px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200">AI
-            Chat</a>
-          <a routerLink="/about"
-            class="px-2 py-1 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200">About</a>
-          <a *ngIf="isMentor" (click)="openReferralModal()"
-            class="px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 cursor-pointer">Refer
-            & Earn</a>
-        </div>
+        <!-- Right Side Actions -->
+        <div class="flex items-center gap-0.5 sm:gap-1 md:gap-1.5 lg:gap-2 xl:gap-3 flex-shrink-0">
+          <div class="hidden lg:flex flex-col relative w-56 xl:w-64 2xl:w-72">
+            <div
+              class="flex items-center gap-2 bg-white/90 dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700 rounded-full ps-3 pe-1 py-1 shadow-sm focus-within:ring-2 focus-within:ring-primary-200 dark:focus-within:ring-primary-500/50 transition-all duration-200"
+              role="combobox" aria-haspopup="listbox" [attr.aria-expanded]="showSearchPanel">
+              <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z" />
+              </svg>
+              <input aria-label="Search mentors by skill or name" type="search" [value]="searchQuery"
+                (input)="onSearchInput($event)" (focus)="onSearchFocus()" (blur)="onSearchBlur()"
+                (keydown)="onSearchKeydown($event)"
+                class="flex-1 bg-transparent outline-none text-xs xl:text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                placeholder="Search mentors, skills..." autocomplete="off" />
+              <button type="button" (mousedown)="$event.preventDefault()" (click)="submitSearch()"
+                class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] xl:text-xs font-medium text-white bg-primary-500 hover:bg-primary-600 transition-colors duration-200">
+                Go
+              </button>
+            </div>
 
-        <div class="flex items-center gap-3">
-          <!-- Search -->
-          <div
-            class="hidden md:flex items-center bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-full px-3 py-1 shadow-sm">
-            <input aria-label="Search mentors" type="search" placeholder="Search mentors, skills..."
-              class="outline-none text-sm w-56 bg-transparent dark:text-white" />
+            <div *ngIf="showSearchPanel"
+              class="absolute top-full mt-2 w-full bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-2xl overflow-hidden z-40"
+              (mousedown)="$event.preventDefault()">
+              <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-muted-500 dark:text-gray-400">Instant
+                    results</p>
+                  <p class="text-[13px] text-gray-500 dark:text-gray-400 truncate">Matching “{{ searchQuery || '…' }}”
+                  </p>
+                </div>
+                <button type="button"
+                  class="text-[11px] uppercase tracking-wide text-primary-500 hover:text-primary-600 font-semibold"
+                  (click)="viewAllResults()">
+                  View all
+                </button>
+              </div>
+              <div class="max-h-64 overflow-y-auto divide-y divide-gray-100 dark:divide-gray-800"
+                role="listbox" aria-label="Mentor suggestions">
+                <ng-container *ngIf="filteredMentors.length; else noResults">
+                  <button type="button" *ngFor="let mentor of filteredMentors"
+                    class="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                    (click)="navigateToMentor(mentor)">
+                    <div
+                      class="w-9 h-9 rounded-full bg-primary-100 dark:bg-primary-500/20 text-primary-600 dark:text-primary-300 font-semibold flex items-center justify-center text-sm">
+                      {{ mentor.avatar || mentor.name[0] }}
+                    </div>
+                    <div class="min-w-0">
+                      <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ mentor.name }}</p>
+                      <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ mentor.title }}</p>
+                      <p class="text-[11px] text-primary-500 dark:text-primary-300 mt-0.5 truncate">
+                        {{ mentor.expertise.slice(0, 3).join(' • ') }}
+                      </p>
+                    </div>
+                    <span
+                      class="ms-auto text-[11px] text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-1">
+                      ★ {{ mentor.rating }}
+                    </span>
+                  </button>
+                </ng-container>
+              </div>
+              <ng-template #noResults>
+                <div class="px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400 space-y-4">
+                  <p>No mentors match “{{ searchQuery || '…' }}” yet.</p>
+                  <div class="flex flex-wrap justify-center gap-2">
+                    <button type="button" *ngFor="let shortcut of searchShortcuts"
+                      class="px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 text-xs text-gray-600 dark:text-gray-300 hover:border-primary-400 hover:text-primary-600 dark:hover:text-primary-300"
+                      (click)="applySearchShortcut(shortcut)">
+                      {{ shortcut }}
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+              <div *ngIf="!filteredMentors.length" class="border-t border-gray-100 dark:border-gray-800 px-4 py-3">
+                <p class="text-[11px] uppercase tracking-wide text-gray-400 dark:text-gray-500 mb-2">Try quick picks</p>
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" *ngFor="let shortcut of searchShortcuts"
+                    class="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-500/20 hover:text-primary-700 dark:hover:text-primary-200 transition-colors"
+                    (click)="applySearchShortcut(shortcut)">
+                    {{ shortcut }}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <!-- CTAs -->
-          <div class="flex items-center gap-2">
-
+          <!-- Desktop/Tablet CTAs (md and up) -->
+          <div class="hidden md:flex items-center gap-1 lg:gap-1.5 xl:gap-2">
             <!-- Dark Mode Toggle -->
             <button (click)="themeService.toggleDarkMode()"
-              class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              class="p-1 md:p-1.5 lg:p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
               aria-label="Toggle Dark Mode">
               <ng-container *ngIf="themeService.darkMode$ | async; else lightIcon">
                 <!-- Sun Icon -->
-                <svg class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3 h-3 md:w-4 md:h-4 lg:w-4 lg:h-4 xl:w-5 xl:h-5 text-yellow-500" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
                   </path>
@@ -61,7 +157,8 @@
               </ng-container>
               <ng-template #lightIcon>
                 <!-- Moon Icon -->
-                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3 h-3 md:w-4 md:h-4 lg:w-4 lg:h-4 xl:w-5 xl:h-5 text-gray-500" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                 </svg>
@@ -69,36 +166,94 @@
             </button>
 
             <a routerLink="/auth/login"
-              class="text-sm px-3 py-2 rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 transition-colors duration-200">
+              class="text-[10px] md:text-xs lg:text-sm px-2 md:px-2.5 lg:px-3 xl:px-4 py-1 md:py-1.5 lg:py-2 rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 transition-colors duration-200 whitespace-nowrap">
               Sign in
             </a>
             <a routerLink="/auth/register"
-              class="text-sm px-4 py-2 rounded-2xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all duration-200">
+              class="text-[10px] md:text-xs lg:text-sm px-2 md:px-2.5 lg:px-3 xl:px-4 py-1 md:py-1.5 lg:py-2 rounded-2xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all duration-200 whitespace-nowrap">
               Get started
             </a>
           </div>
 
+          <!-- Mobile Actions (below md) -->
+          <div class="flex md:hidden items-center gap-0.5 sm:gap-1">
+            <!-- Dark Mode Toggle - Mobile -->
+            <button (click)="themeService.toggleDarkMode()"
+              class="p-1 sm:p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
+              aria-label="Toggle Dark Mode">
+              <ng-container *ngIf="themeService.darkMode$ | async; else lightIconMobile">
+                <!-- Sun Icon -->
+                <svg class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                  </path>
+                </svg>
+              </ng-container>
+              <ng-template #lightIconMobile>
+                <!-- Moon Icon -->
+                <svg class="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                </svg>
+              </ng-template>
+            </button>
 
-          <!-- Mobile menu toggle -->
-          <button class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-            aria-label="Open menu" (click)="openMobile = !openMobile">
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+            <!-- Mobile menu toggle -->
+            <button
+              class="p-1 sm:p-1.5 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+              aria-label="Open menu" (click)="openMobile = !openMobile">
+              <svg *ngIf="!openMobile" class="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-200"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg *ngIf="openMobile" class="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-200" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
       </nav>
     </div>
 
     <!-- Mobile nav -->
-    <div *ngIf="openMobile" class="md:hidden bg-white border-t border-gray-100">
-      <div class="px-4 py-3 space-y-2">
-        <a routerLink="/mentors" class="block py-2">Browse mentors</a>
-        <a routerLink="/booking" class="block py-2">Book</a>
-        <a routerLink="/chatbot" class="block py-2">AI Chat</a>
-        <button *ngIf="isMentor" type="button" class="block py-2 text-left w-full text-indigo-600 font-semibold"
-          (click)="openReferralModal(); openMobile = false">Refer & Earn</button>
-        <a routerLink="/auth/login" class="block py-2">Sign in</a>
+    <div *ngIf="openMobile"
+      class="md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 animate-in slide-in-from-top duration-200">
+      <div class="px-2 xs:px-3 py-1.5 xs:py-2 space-y-0">
+        <a routerLink="/mentors" (click)="openMobile = false"
+          class="block py-1.5 xs:py-2 px-2 text-xs xs:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors">
+          Browse mentors
+        </a>
+        <a routerLink="/booking" (click)="openMobile = false"
+          class="block py-1.5 xs:py-2 px-2 text-xs xs:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors">
+          Book
+        </a>
+        <a routerLink="/pricing" (click)="openMobile = false"
+          class="block py-1.5 xs:py-2 px-2 text-xs xs:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors">
+          Pricing
+        </a>
+        <a routerLink="/chatbot" (click)="openMobile = false"
+          class="block py-1.5 xs:py-2 px-2 text-xs xs:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors">
+          AI Chat
+        </a>
+        <a routerLink="/about" (click)="openMobile = false"
+          class="block py-1.5 xs:py-2 px-2 text-xs xs:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors">
+          About
+        </a>
+        <button *ngIf="isMentor" type="button" (click)="openReferralModal(); openMobile = false"
+          class="block w-full text-left py-1.5 xs:py-2 px-2 text-xs xs:text-sm text-indigo-600 dark:text-indigo-400 font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors">
+          Refer & Earn
+        </button>
+        <div class="border-t border-gray-100 dark:border-gray-800 my-1.5 xs:my-2"></div>
+        <a routerLink="/auth/login" (click)="openMobile = false"
+          class="block py-1.5 xs:py-2 px-2 text-xs xs:text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors">
+          Sign in
+        </a>
+        <a routerLink="/auth/register" (click)="openMobile = false"
+          class="block py-1.5 xs:py-2 px-2 text-xs xs:text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors text-center font-medium">
+          Get started
+        </a>
       </div>
     </div>
   </header>
