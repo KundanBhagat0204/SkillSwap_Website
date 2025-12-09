@@ -1,0 +1,104 @@
+---
+alwaysApply: false
+---
+global_requirements:
+  - Cursor must ALWAYS ask necessary clarifying questions
+    before generating code (unless developer says "no questions").
+  - Output must ALWAYS match the installed Angular version,
+    TypeScript version, Ant Design version, and any UI framework
+    found in:
+        • package.json
+        • package-lock.json
+        • angular.json
+  - NEVER hallucinate missing imports, methods, modules, or APIs.
+  - ALWAYS use existing project structure, naming patterns, and
+    coding standards automatically.
+  - ALWAYS generate fully working, error-free, production-ready,
+    minimal and clean Angular code.
+  - ALWAYS follow Angular best practices:
+        • Standalone components = only if project uses them
+        • Module-based Angular = only if project uses modules
+        • Strongly typed code
+        • OnPush change detection if project uses it
+        • Correct import paths
+        • Correct folder structure
+
+framework_detection:
+  angular:
+    enable: true
+  ant_design:
+    detect_from_installed_packages: true
+    required_packages:
+      - ng-zorro-antd
+  tailwind:
+    detect_from_angular_json: true
+  bootstrap:
+    detect_from_styles_in_angular_json: true
+
+ui_library_rules:
+  when_ant_design_installed:
+    - Prefer AntD components when generating UI
+    - Use official AntD syntax, imports, modules, and services
+    - Do NOT use any component not included in installed version
+  when_ant_design_not_installed:
+    - NEVER generate AntD components
+    - Use only Angular built-in features
+    - Use developer’s chosen styling method (CSS/Tailwind/Bootstrap)
+
+prompt_files:
+  - component-generator.prompt
+  - module-generator.prompt
+  - route-generator.prompt
+  - list-table.prompt
+  - drawer.prompt
+  - modal.prompt
+  - ant-ui.prompt
+
+default_behavior:
+  - When developer uses ANY of the prompt files, Cursor must:
+        1. Detect Angular version
+        2. Detect UI library (AntD/Tailwind/Bootstrap/None)
+        3. Ask developer required questions (auto)
+        4. Generate correct and clean code
+        5. Provide all necessary imports & scaffolding
+        6. Prevent typing errors, missing modules, or unused code
+  - For table/list/drawer/modal generator:
+        • Must ask: pagination type, filtering, sorting, drawer/modal mode
+  - For routing generator:
+        • Must ask: path, lazy loading, redirect rules, route guards
+  - For component generator:
+        • Must ask: type (basic/table/form/drawer/modal)
+        • Must ask: UI library usage (AntD or plain Angular)
+  - For UI components (ant-ui.prompt):
+        • Must ask which component + required properties + target design
+
+strict_rules:
+  - Do NOT create unnecessary files.
+  - Do NOT produce code that fails compilation.
+  - Do NOT guess module names or import paths.
+  - Do NOT generate any UI code unless developer requests it.
+  - Do NOT output Ant Design code when AntD is not installed.
+  - Do NOT skip required imports for Angular Router, Forms, HttpClient.
+
+ask_these_questions_every_time:
+  - “Which Angular component/module should this code integrate with?”
+  - “Do you want Ant Design UI or plain Angular UI?”
+  - “Do you want standalone components or NgModule-based?”
+  - “Should I use Tailwind/Bootstrap or plain CSS?”
+  - “Any specific layout, behavior, or interactions needed?”
+  - “Should I auto-generate service/model/route if missing?”
+
+output_quality_rules:
+  - Code must be:
+      • Clean
+      • Readable
+      • Best-practice aligned
+      • Fully typed
+      • Zero warnings
+      • Zero errors
+  - Include interfaces for inputs/outputs
+  - Include minimal CSS for working layout
+  - Use naming conventions aligned with Angular style guide
+
+# END OF FILE
+# =========================================================

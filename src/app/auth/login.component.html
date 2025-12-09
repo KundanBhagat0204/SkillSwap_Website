@@ -1,18 +1,38 @@
-<div class="min-h-screen flex items-center justify-center px-4">
-    <div class="w-full max-w-md bg-card dark:bg-gray-800 rounded-2xl shadow p-8">
-        <h1 class="text-2xl font-semibold text-muted-700 dark:text-white mb-4">Welcome back</h1>
+<div
+    class="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-400 via-pink-200 to-purple-300 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900 px-4">
+    <div class="relative w-full max-w-md bg-white/30 dark:bg-slate-900/40 backdrop-blur-2xl border border-white/40 dark:border-slate-200/10 shadow-2xl rounded-3xl sm:p-8 p-4 my-[5px] transition-all duration-300"
+        style="box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);">
+        <div
+            class="absolute -top-10 left-1/2 -translate-x-1/2 w-24 h-24 bg-gradient-to-br from-blue-300/50 to-purple-400/50 rounded-full blur-2xl -z-10">
+        </div>
+        <h1 class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8 drop-shadow">Sign in to your
+            account</h1>
         <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
             <label class="block mb-2 text-sm text-gray-700 dark:text-gray-300">Email</label>
-            <input formControlName="email" type="email"
-                class="w-full p-3 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white mb-4" />
+            <input id="email" formControlName="email" type="email"
+                class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/80 dark:bg-slate-700/80 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-700 outline-none transition mb-2 backdrop-blur" />
+            <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)"
+                class="text-xs text-red-500 mb-4 px-1">
+                <div *ngIf="form.controls['email'].errors?.['required']">Email is required.</div>
+                <div *ngIf="form.controls['email'].errors?.['email']">Invalid email address.</div>
+            </div>
             <label class="block mb-2 text-sm text-gray-700 dark:text-gray-300">Password</label>
-            <input formControlName="password" type="password"
-                class="w-full p-3 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white mb-4" />
+            <input id="password" formControlName="password" type="password"
+                class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/80 dark:bg-slate-700/80 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-400 dark:focus:ring-purple-700 outline-none transition mb-2 backdrop-blur" />
+            <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)"
+                class="text-xs text-red-500 mb-4 px-1">
+                <div *ngIf="form.controls['password'].errors?.['required']">Password is required.</div>
+            </div>
             <div *ngIf="error" class="text-sm text-danger mb-2">{{ error }}</div>
             <button [disabled]="submitting"
-                class="w-full py-3 rounded-2xl text-white bg-primary-600 hover:bg-primary-500">
+                class="w-full py-3 px-4 rounded-2xl font-medium shadow-lg text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 hover:scale-[1.01] transition disabled:opacity-60 disabled:cursor-not-allowed">
                 {{ submitting ? 'Signing in...' : 'Sign in' }}
             </button>
         </form>
+        <!-- Example sign up link, optional -->
+        <p class="mt-6 text-center text-sm text-gray-700 dark:text-gray-300">Don’t have an account?
+            <a routerLink="/signup"
+                class="font-semibold text-blue-700 dark:text-blue-400 hover:underline transition">Sign up</a>
+        </p>
     </div>
 </div>

@@ -25,6 +25,9 @@ export class MentorProfileComponent implements OnInit {
     }
 
     themeClass(mentor: Mentor | undefined): string {
+        if (mentor?.name === 'James Anderson') {
+            return 'theme-james-anderson';
+        }
         if (!mentor) { return 'theme-default'; }
         const expertise = (mentor.expertise || []).map(e => e.toLowerCase());
         if (expertise.some(e => ['backend', 'node', 'api', 'cloud'].some(k => e.includes(k)))) {

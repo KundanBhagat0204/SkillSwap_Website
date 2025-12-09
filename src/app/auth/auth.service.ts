@@ -20,7 +20,7 @@ export class AuthService {
 
     login(email: string, password: string): Observable<{ accessToken: string; user: User }> {
         // Mock API call
-        if (email === 'admin@gmail.com' && password === '12345678') {
+        if (email === 'admin@gmail.com' && password === '1234') {
             const mockUser: User = { id: '1', email, name: 'Admin User', roles: ['admin', 'user', 'mentor'], goldenTickets: 3 };
             return of({ accessToken: 'mock-jwt-token', user: mockUser }).pipe(
                 delay(500),

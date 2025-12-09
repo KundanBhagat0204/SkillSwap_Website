@@ -502,6 +502,7 @@
 .theme-product { --accent: #f59e0b; --accent-2: #f97316; --panel: rgba(255, 247, 237, 0.94); --panel-border: #fed7aa; }
 .theme-data { --accent: #10b981; --accent-2: #22c55e; --panel: rgba(236, 253, 245, 0.94); --panel-border: #bbf7d0; }
 .theme-default { --accent: #6366f1; --accent-2: #22d3ee; --panel: rgba(255, 255, 255, 0.9); --panel-border: #e2e8f0; }
+.theme-james-anderson { --accent: #ff2cfb; --accent-2: #fa05e1; --panel: rgba(255, 230, 255, 0.92); --panel-border: #fdbef5; }
 
 .card-top {
     display: flex;
@@ -653,20 +654,20 @@
 
 .cta-band {
     display: flex;
-    justify-content: space-between;
+        justify-content: space-between;
     gap: 1rem;
     align-items: center;
     border-radius: 18px;
     padding: 1.4rem 1.6rem;
     background: linear-gradient(120deg, rgba(99, 102, 241, 0.08), rgba(14, 165, 233, 0.08));
     border: 1px solid rgba(79, 70, 229, 0.2);
-}
+    }
 
 .cta-actions {
     display: flex;
     gap: 0.6rem;
     flex-wrap: wrap;
-}
+    }
 
 /* Responsive */
 @media (max-width: 900px) {

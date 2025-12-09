@@ -82,11 +82,12 @@
             </div>
             <div class="header-actions">
                 <a routerLink="/dashboard/orders" class="btn-outline">Go to Sessions</a>
-                <button *ngIf="isMentor" class="btn-primary" type="button" (click)="scrollToReferral()">
-                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button *ngIf="isMentor" class="btn-primary px-7 py-0.5 mt-3.5" type="button"
+                    (click)="scrollToReferral()">
+                    <svg class="btn-icon text-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
-                    Refer & Earn
+                    <span class="text-sm">Refer & Earn</span>
                 </button>
             </div>
         </div>
