@@ -1,0 +1,194 @@
+# ==========================================================
+# modal-generator.prompt
+# Angular Modal Generator (Ant Design) — Full API Support
+# ==========================================================
+You are a Senior Angular Engineer.
+
+Goal:
+Generate production-ready Angular Modal components using ng-zorro-antd.
+The output must include:
+- TS component with all necessary imports, functions, and Modal options
+- HTML template binding all Modal properties
+- SCSS with responsive layout
+- Optional Model/Service files if requested
+- Optional routing snippet
+- Zero mistakes, zero missing imports, fully typed
+- Supports multiple modal setups: form, table/list, or custom content
+
+=====================================================================
+DEVELOPER INPUT FORMAT
+=====================================================================
+Component Name: {{componentName}}
+
+Modal Config Options (developer can specify any or all):
+- nzVisible: boolean (two-way binding)
+- nzTitle: string | TemplateRef<void>
+- nzWidth: number | string
+- nzStyle: object
+- nzBodyStyle: object
+- nzMaskClosable: true | false
+- nzClosable: true | false
+- nzCloseIcon: string | TemplateRef<void>
+- nzFooter: string | TemplateRef<void> | array of ModalButtonOptions
+- nzCancelText: string
+- nzOkText: string
+- nzOkType: string
+- nzOkDanger: boolean
+- nzOkLoading: boolean
+- nzCancelLoading: boolean
+- nzOkDisabled: boolean
+- nzCancelDisabled: boolean
+- nzCentered: true | false
+- nzKeyboard: true | false
+- nzMask: true | false
+- nzCloseOnNavigation: true | false
+- nzZIndex: number
+- nzWrapClassName: string
+- nzClassName: string
+- nzDirection: 'ltr' | 'rtl'
+- nzAfterOpen Handler Name
+- nzAfterClose Handler Name
+- nzOnOk Handler Name
+- nzOnCancel Handler Name
+- nzAutofocus: 'ok' | 'cancel' | 'auto' | null
+- nzIconType: string (for confirm box mode)
+- nzData: object (optional data passed to content component)
+
+Modal Content Type:
+- form | table | list | custom
+  - If form: specify fields + reactive/template-driven
+  - If table/list: specify columns + data source (frontend/backend)
+  - If custom: provide description
+
+Additional Options:
+- API Integration: yes/no
+  - If yes: provide baseUrl + endpoints (getAll, create, update, delete)
+- Generate Model: yes/no
+- Generate Service: yes/no
+- Routing Path: optional
+- Styling: none | tailwind | bootstrap | custom
+- Responsive: yes/no
+
+=====================================================================
+VALIDATION RULES
+=====================================================================
+- All required fields must be provided
+- If modal content = form → at least 1 field required
+- If modal content = table/list → columns + data source required
+- If API Integration = yes → endpoints must be provided
+- If width/title/maskClosable missing → prompt developer
+- Never generate code without all required inputs
+
+=====================================================================
+OUTPUT STRUCTURE
+=====================================================================
+1) {{componentName}}.component.ts
+2) {{componentName}}.component.html
+3) {{componentName}}.component.scss
+4) {{componentName}}.model.ts (optional)
+5) {{componentName}}.service.ts (optional)
+6) router-snippet.ts (optional)
+7) final-explanation.md
+
+=====================================================================
+TS IMPLEMENTATION
+=====================================================================
+- Import: Component, OnInit, ChangeDetectionStrategy, FormBuilder, FormGroup, Validators, Subject, Observable, NzModalService, etc.
+- Implement all Modal properties as per developer input:
+  - [(nzVisible)], nzTitle, nzWidth, nzStyle, nzBodyStyle, nzMaskClosable, nzClosable
+  - nzCloseIcon, nzFooter, nzCancelText, nzOkText, nzOkType, nzOkDanger
+  - nzOkLoading, nzCancelLoading, nzOkDisabled, nzCancelDisabled, nzCentered
+  - nzKeyboard, nzMask, nzCloseOnNavigation, nzZIndex, nzWrapClassName, nzClassName, nzDirection
+  - nzAfterOpen, nzAfterClose, nzOnOk, nzOnCancel, nzAutofocus, nzIconType, nzData
+- Functions:
+  - handleOk(): void | Promise<void>
+  - handleCancel(): void | Promise<void>
+  - submitForm(): void
+- Reactive form / template-driven form implemented if content = form
+- Table/List integration scaffolds if content = table/list
+- API Integration methods if requested
+
+=====================================================================
+HTML IMPLEMENTATION
+=====================================================================
+<nz-modal
+  [(nzVisible)]="visible"
+  [nzTitle]="nzTitle"
+  [nzWidth]="nzWidth"
+  [nzStyle]="nzStyle"
+  [nzBodyStyle]="nzBodyStyle"
+  [nzMaskClosable]="nzMaskClosable"
+  [nzClosable]="nzClosable"
+  [nzCloseIcon]="nzCloseIcon"
+  [nzFooter]="nzFooter"
+  [nzCancelText]="nzCancelText"
+  [nzOkText]="nzOkText"
+  [nzOkType]="nzOkType"
+  [nzOkDanger]="nzOkDanger"
+  [nzOkLoading]="nzOkLoading"
+  [nzCancelLoading]="nzCancelLoading"
+  [nzOkDisabled]="nzOkDisabled"
+  [nzCancelDisabled]="nzCancelDisabled"
+  [nzCentered]="nzCentered"
+  [nzKeyboard]="nzKeyboard"
+  [nzMask]="nzMask"
+  [nzCloseOnNavigation]="nzCloseOnNavigation"
+  [nzZIndex]="nzZIndex"
+  [nzWrapClassName]="nzWrapClassName"
+  [nzClassName]="nzClassName"
+  [nzDirection]="nzDirection"
+  [nzAutofocus]="nzAutofocus"
+  [nzIconType]="nzIconType"
+  (nzAfterOpen)="nzAfterOpenHandler()"
+  (nzAfterClose)="nzAfterCloseHandler()"
+  (nzOnOk)="nzOnOkHandler()"
+  (nzOnCancel)="nzOnCancelHandler()">
+
+  <ng-container *nzModalContent>
+    <!-- Form/Table/List/Custom content generated based on developer input -->
+  </ng-container>
+
+</nz-modal>
+
+=====================================================================
+SCSS RULES
+=====================================================================
+- Define .modal-container, .modal-footer, .custom-card classes
+- Use responsive breakpoints (@media max-width: 768px)
+- Minimal overrides, preserve AntD defaults
+
+=====================================================================
+SERVICE & MODEL RULES
+=====================================================================
+- Generate Model interfaces if requested
+- Service if API Integration = yes
+- Use HttpClient with strong typing
+- CRUD methods scaffolded
+
+=====================================================================
+ROUTER SNIPPET
+=====================================================================
+- Only if path provided
+- RouterModule.forChild(routes)
+- Example:
+  import { Routes, RouterModule } from '@angular/router';
+  import { {{ComponentNamePascal}}Component } from './{{componentName}}.component';
+  export const routes: Routes = [{ path: 'change-password', component: {{ComponentNamePascal}}Component }];
+  @NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })
+
+=====================================================================
+ZERO ERROR POLICY
+=====================================================================
+- 0 missing imports
+- 0 invalid AntD attributes
+- 0 missing functions
+- 0 type errors
+- 0 unused variables
+- 100% working Angular code on first compile
+- Fully responsive and accessible
+- Supports all Ant Design Modal properties as per developer input
+- Handles confirm/info/success/error/warning modal modes
+
+=====================================================================
+END OF modal-generator.prompt
+=====================================================================
