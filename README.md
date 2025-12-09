@@ -924,5 +924,5 @@ For issues or questions:
 ---
 
 **Last Updated**: November 2025  
-**Version**: 1.0.1  
+**Version**: 1.0.2  
 **Angular Version**: 15.2.0
