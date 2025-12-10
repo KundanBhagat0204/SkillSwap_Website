@@ -62,4 +62,75 @@
             </div>
         </div>
     </div>
+
+    <!-- Contact Form Section -->
+    <div class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="contact-subtitle">Have questions? We'd love to hear from you.</p>
+
+            <form #contactFormRef="ngForm" (ngSubmit)="submitContactForm(contactFormRef)" novalidate
+                class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name *</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name"
+                            [(ngModel)]="contactModel.name" #name="ngModel" required minlength="2" maxlength="50"
+                            [class.error]="name.invalid && name.touched">
+                        <div class="error-message" *ngIf="name.invalid && name.touched">
+                            <span *ngIf="name.errors?.['required']">Name is required.</span>
+                            <span *ngIf="name.errors?.['minlength']">Name must be at least 2 characters.</span>
+                            <span *ngIf="name.errors?.['maxlength']">Name cannot exceed 50 characters.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email *</label>
+                        <input type="email" id="email" name="email" class="form-input"
+                            placeholder="your.email@example.com" [(ngModel)]="contactModel.email" #email="ngModel"
+                            required email [class.error]="email.invalid && email.touched">
+                        <div class="error-message" *ngIf="email.invalid && email.touched">
+                            <span *ngIf="email.errors?.['required']">Email is required.</span>
+                            <span *ngIf="email.errors?.['email']">Please enter a valid email address.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="message" class="form-label">Message *</label>
+                        <textarea id="message" name="message" class="form-textarea" rows="4"
+                            placeholder="Tell us about your inquiry or feedback..." [(ngModel)]="contactModel.message"
+                            #message="ngModel" required minlength="10" maxlength="500"
+                            [class.error]="message.invalid && message.touched"></textarea>
+                        <div class="error-message" *ngIf="message.invalid && message.touched">
+                            <span *ngIf="message.errors?.['required']">Message is required.</span>
+                            <span *ngIf="message.errors?.['minlength']">Message must be at least 10 characters.</span>
+                            <span *ngIf="message.errors?.['maxlength']">Message cannot exceed 500 characters.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contactNumber" class="form-label">Contact Number</label>
+                        <input type="tel" id="contactNumber" name="contactNumber" class="form-input"
+                            placeholder="1234567890" [(ngModel)]="contactModel.contactNumber" #contactNumber="ngModel"
+                            maxlength="10" pattern="[0-9]{10}"
+                            [class.error]="contactNumber.invalid && contactNumber.touched">
+                        <div class="error-message" *ngIf="contactNumber.invalid && contactNumber.touched">
+                            <span *ngIf="contactNumber.errors?.['pattern']">Please enter a valid 10-digit phone
+                                number.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn-submit" [disabled]="contactFormRef.invalid">
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

@@ -1,4 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+interface ContactFormModel {
+    name: string;
+    email: string;
+    message: string;
+    contactNumber: string;
+}
 
 @Component({
     selector: 'app-about',
@@ -6,6 +14,16 @@ import { Component } from '@angular/core';
     styleUrls: ['./about.component.css']
 })
 export class AboutComponent {
+    @ViewChild('contactFormRef') contactForm!: NgForm;
+
+    // Form model
+    contactModel: ContactFormModel = {
+        name: '',
+        email: '',
+        message: '',
+        contactNumber: ''
+    };
+
     // Steps for "How It Works" section
     steps = [
         { number: 1, title: 'Find a Mentor', description: 'Browse our mentor directory and select an expert that matches your learning goals.' },
@@ -20,4 +38,21 @@ export class AboutComponent {
         { title: 'Affordable Pricing', description: 'Pay per session or choose a subscription plan that suits you.' },
         { title: 'Community Support', description: 'Join a vibrant community of learners and mentors.' }
     ];
+
+    // Contact form submission
+    submitContactForm(form: NgForm): void {
+        if (form.valid) {
+            console.log('Contact form submitted:', this.contactModel);
+            // TODO: Integrate with API service when needed
+            alert('Thank you for your message! We will get back to you soon.');
+            // Reset form after successful submission
+            this.contactModel = {
+                name: '',
+                email: '',
+                message: '',
+                contactNumber: ''
+            };
+            form.resetForm();
+        }
+    }
 }
