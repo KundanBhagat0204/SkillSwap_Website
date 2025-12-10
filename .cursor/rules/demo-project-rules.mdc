@@ -1,6 +1,7 @@
 ---
 alwaysApply: false
 ---
+
 global_requirements:
   - Cursor must ALWAYS ask necessary clarifying questions
     before generating code (unless developer says "no questions").
@@ -13,15 +14,14 @@ global_requirements:
   - NEVER hallucinate missing imports, methods, modules, or APIs.
   - ALWAYS use existing project structure, naming patterns, and
     coding standards automatically.
-  - ALWAYS generate fully working, error-free, production-ready,
-    minimal and clean Angular code.
+  - ALWAYS generate fully working, production-ready, minimal and
+    clean Angular code.
   - ALWAYS follow Angular best practices:
-        • Standalone components = only if project uses them
-        • Module-based Angular = only if project uses modules
-        • Strongly typed code
-        • OnPush change detection if project uses it
-        • Correct import paths
-        • Correct folder structure
+        • Standalone components only if project uses them
+        • Modules only if project uses modules
+        • Strong typing everywhere
+        • Use OnPush if the project follows it
+        • Correct import paths and folder structure
 
 framework_detection:
   angular:
@@ -39,7 +39,7 @@ ui_library_rules:
   when_ant_design_installed:
     - Prefer AntD components when generating UI
     - Use official AntD syntax, imports, modules, and services
-    - Do NOT use any component not included in installed version
+    - Do NOT use any component not included in the installed version
   when_ant_design_not_installed:
     - NEVER generate AntD components
     - Use only Angular built-in features
@@ -55,50 +55,145 @@ prompt_files:
   - ant-ui.prompt
 
 default_behavior:
-  - When developer uses ANY of the prompt files, Cursor must:
+  - When ANY prompt file is used, Cursor must:
         1. Detect Angular version
         2. Detect UI library (AntD/Tailwind/Bootstrap/None)
-        3. Ask developer required questions (auto)
-        4. Generate correct and clean code
-        5. Provide all necessary imports & scaffolding
-        6. Prevent typing errors, missing modules, or unused code
-  - For table/list/drawer/modal generator:
-        • Must ask: pagination type, filtering, sorting, drawer/modal mode
-  - For routing generator:
-        • Must ask: path, lazy loading, redirect rules, route guards
-  - For component generator:
-        • Must ask: type (basic/table/form/drawer/modal)
-        • Must ask: UI library usage (AntD or plain Angular)
-  - For UI components (ant-ui.prompt):
-        • Must ask which component + required properties + target design
+        3. Ask developer required questions
+        4. Generate correct, clean code
+        5. Provide all needed imports & scaffolding
+        6. Prevent unused code or missing modules
+  - For table/list/drawer/modal:
+        • Ask pagination type, filtering, sorting, drawer/modal mode
+  - For routing:
+        • Ask path, lazy loading, guards, redirects
+  - For components:
+        • Ask type (basic/table/form/drawer/modal)
+        • Ask UI library choice
+  - For UI components:
+        • Ask component type + required props + design
 
 strict_rules:
   - Do NOT create unnecessary files.
   - Do NOT produce code that fails compilation.
   - Do NOT guess module names or import paths.
-  - Do NOT generate any UI code unless developer requests it.
-  - Do NOT output Ant Design code when AntD is not installed.
-  - Do NOT skip required imports for Angular Router, Forms, HttpClient.
+  - Do NOT generate UI unless requested.
+  - Do NOT output AntD code if AntD is not installed.
+  - Do NOT skip Router/Forms/HttpClient imports when required.
+  - Do NOT change stylesheet type (css ↔ scss).
+  - Do NOT delete existing .css or .scss files.
+  - When updating styles: MERGE, never overwrite.
 
 ask_these_questions_every_time:
-  - “Which Angular component/module should this code integrate with?”
-  - “Do you want Ant Design UI or plain Angular UI?”
-  - “Do you want standalone components or NgModule-based?”
-  - “Should I use Tailwind/Bootstrap or plain CSS?”
-  - “Any specific layout, behavior, or interactions needed?”
-  - “Should I auto-generate service/model/route if missing?”
+  - “Which Angular component/module should this integrate with?”
+  - “Ant Design UI or plain Angular UI?”
+  - “Standalone or NgModule-based?”
+  - “Tailwind/Bootstrap or plain CSS?”
+  - “Specific layout, behavior, or interactions?”
+  - “Generate service/model/route if missing?”
 
 output_quality_rules:
   - Code must be:
-      • Clean
-      • Readable
+      • Clean, readable
       • Best-practice aligned
       • Fully typed
       • Zero warnings
       • Zero errors
   - Include interfaces for inputs/outputs
-  - Include minimal CSS for working layout
-  - Use naming conventions aligned with Angular style guide
+  - Provide minimal CSS for layout
+  - Follow Angular official naming conventions
+
+# =========================================================
+# UPDATED SECTION — FIXED CSS/SCSS PROBLEM
+# =========================================================
+
+project_state_detection:
+  detect_existing_files: true
+
+  rules:
+    - Inspect and analyze existing component files:
+        • *.component.ts
+        • *.component.html
+        • *.component.css
+        • *.component.scss
+    - Detect EXACT stylesheet used by component:
+        • If file ends with `.component.css`, ALWAYS generate CSS only.
+        • If file ends with `.component.scss`, ALWAYS generate SCSS only.
+    - When updating:
+        • NEVER overwrite existing style files
+        • NEVER convert CSS to SCSS or SCSS to CSS
+        • NEVER delete CSS/SCSS files
+        • Merge new styles into existing stylesheet safely
+        • Maintain original formatting and indentation
+    - Preserve:
+        • Services
+        • Inputs/Outputs
+        • Selectors
+        • ChangeDetectionStrategy
+        • Existing logic
+        • Existing styling frameworks (CSS/Tailwind/Bootstrap)
+
+  detect_ui_libraries:
+    - Detect installed libraries from:
+        • package.json
+        • angular.json (styles/scripts)
+        • node_modules
+    - Supported detection:
+        • Ant Design (ng-zorro-antd)
+        • Tailwind CSS
+        • Bootstrap
+    - When NONE detected:
+        • Ask: “No UI library found. Install Ant Design, Tailwind,
+          Bootstrap, or continue with plain Angular?”
+
+  detect_css_frameworks:
+    - Check angular.json for Tailwind/Bootstrap config
+    - Check component CSS/SCSS for utility classes
+    - Maintain styling consistency across generated code
+
+  version_validation:
+    - Validate Angular, TypeScript, AntD, Tailwind, Bootstrap versions
+    - Ensure output matches EXACT installed versions
+    - Warn when:
+        • UI library version is incompatible
+        • Angular major version mismatch
+        • Deprecated APIs found in existing files
+
+# =========================================================
+
+ui_ux_design_rules:
+  global_design:
+    - Follow modern UX principles: clarity, spacing, contrast, hierarchy.
+    - Clean structure with consistent alignment and padding.
+    - Avoid clutter; prefer simplicity.
+    - Ensure accessibility: ARIA roles, keyboard nav, focus states.
+    - Responsive by default for all breakpoints.
+    - UI must look premium, modern, consistent.
+
+  spacing_and_layout:
+    - Use spacing scale: 24px (sections), 16px (content), 8px (micro).
+    - Group related fields visually using cards/dividers.
+    - Use grid/flex for balanced alignment.
+
+  component_design:
+    - Follow AntD patterns when AntD exists.
+    - Button hierarchy: primary > default > link.
+    - Inline validation for forms.
+    - Tables must include sorting, filtering, empty state, pagination.
+    - Modals/Drawers must be clean with proper sizing and clear CTAs.
+
+  styling_principles:
+    - Subtle shadow, soft borders, modern rounded corners.
+    - Use palette of the installed UI library.
+    - Consistent typography.
+
+  responsiveness:
+    - Components must scale well on mobile/tablet/desktop.
+    - Use column or stacked layouts based on viewport width.
+
+  interaction_patterns:
+    - Disable submit buttons until form is valid.
+    - Provide loading, error, and success states.
+    - Never hide errors; show them clearly.
 
 # END OF FILE
 # =========================================================
