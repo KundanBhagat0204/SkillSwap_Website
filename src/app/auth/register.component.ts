@@ -11,6 +11,7 @@ import { ToastService } from '../shared/components/toast.service';
 export class RegisterComponent implements OnInit {
     form!: FormGroup;
     submitting = false;
+    showPassword = false;
 
     constructor(
         private fb: FormBuilder,
@@ -49,5 +50,9 @@ export class RegisterComponent implements OnInit {
                 this.router.navigate(['/auth/login']);
             }, 1500);
         }, 1000);
+    }
+
+    togglePasswordVisibility() {
+        this.showPassword = !this.showPassword;
     }
 }

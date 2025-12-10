@@ -12,6 +12,7 @@ export class LoginComponent {
     form: FormGroup;
     submitting = false;
     error?: string;
+    showPassword = false;
 
     constructor(
         private fb: FormBuilder,
@@ -48,5 +49,9 @@ export class LoginComponent {
                 this.submitting = false;
             }
         });
+    }
+
+    togglePasswordVisibility() {
+        this.showPassword = !this.showPassword;
     }
 }
