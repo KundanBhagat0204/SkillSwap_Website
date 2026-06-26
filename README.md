@@ -1,4 +1,4 @@
-# SkillSwap - Mentor-Mentee Platform
+# SkillSwap - Mentor-Mentee Platform 😎
 
 A comprehensive Angular-based web application that connects mentors and mentees for skill-sharing sessions. This platform enables users to browse mentors, book sessions, manage their learning journey, and earn rewards through referrals.
 
